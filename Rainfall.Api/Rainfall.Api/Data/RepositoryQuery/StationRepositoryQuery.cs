@@ -26,10 +26,7 @@ namespace Rainfall.Api.Data.RepositoryQuery
                 return JsonHelper.DeserializeOrDefault<StationsReading>(await httpResponse.Content.ReadAsStringAsync());
             }
 
-            throw new ApiErrorSetting 
-            {
-                Message = "Bad Request"
-            };
+            return default;
         }
     }
 }
