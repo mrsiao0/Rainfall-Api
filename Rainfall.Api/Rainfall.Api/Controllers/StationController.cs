@@ -18,8 +18,6 @@ namespace Rainfall.Api.Controllers
         [HttpGet("id/{stationId}/readings")]
         public async Task<IActionResult> GetStationReadings([FromQuery]int count, string stationId)
         {
-            if (count == 5)
-                return BadRequest();
 
             return Ok( await _mediator.Send(new StationsRequest
             {
