@@ -13,7 +13,12 @@ namespace Rainfall.Api.Application.ServiceQuery
         }
         public async Task<StationsReading> StationInfos(StationsRequest request, CancellationToken cancellationToken)
         {
-            return await _stationRepositoryQuery.GetListStations(request, cancellationToken);
+            var readings = await _stationRepositoryQuery.GetListStations(request, cancellationToken);
+            
+            if(readings is not null)
+                readings.Items = readings.Items.Take(request.Count);
+            
+            return readings;
         }
     }
 }
