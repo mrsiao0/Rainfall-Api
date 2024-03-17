@@ -6,7 +6,7 @@ namespace Rainfall.Api.Domain.ViewModel
     {
         [JsonPropertyName("@id")]
         public string Id { get; set; }
-        public string DateTime { get; set; }
+        public DateTime DateTime { get; set; }
         public string Measure { get; set; }
         public double Value { get; set; }
     }
