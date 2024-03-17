@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Rainfall.Api.Domain.FluentValidations;
 using Rainfall.Api.Domain.Request;
 using Rainfall.Api.Domain.Settings;
-using Rainfall.Api.Domain.ViewModel;
 
 namespace Rainfall.Api.Controllers
 {
@@ -18,7 +17,7 @@ namespace Rainfall.Api.Controllers
         }
 
         [HttpGet("id/{stationId}/readings")]
-        public async Task<IActionResult> GetStationReadings([FromQuery]int count, string stationId)
+        public async Task<IActionResult> GetStationReadings(string stationId, [FromQuery] int count = 10)
         {
             var request = new StationsRequest
             {
