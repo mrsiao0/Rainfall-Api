@@ -8,6 +8,7 @@ namespace Rainfall.Api.Controllers
 {
     [Route("rainfall")]
     [ApiController]
+    [Produces("application/json")]
     public class StationController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -16,6 +17,13 @@ namespace Rainfall.Api.Controllers
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
+        /// <summary>
+        /// Operations relating to rainfall
+        /// </summary>
+        /// <response code="200">A list of rainfall readings successfully retrieved</response>
+        /// <response code="400">Invalid request</response>
+        /// <response code="404">No readings found for the specified stationId</response>
+        /// <response code="500">Internal server error</response>
         [HttpGet("id/{stationId}/readings")]
         public async Task<IActionResult> GetStationReadings(string stationId, [FromQuery] int count = 10)
         {
