@@ -5,7 +5,7 @@ using Rainfall.Api.Domain.ViewModel;
 
 namespace Rainfall.Api.Controllers
 {
-    [Route("api/station")]
+    [Route("rainfall")]
     [ApiController]
     public class StationController : ControllerBase
     {
@@ -15,14 +15,17 @@ namespace Rainfall.Api.Controllers
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet("list/{stationId}")]
-        public async Task<StationsReading> GetStationReadings([FromQuery]int count, string stationId)
+        [HttpGet("id/{stationId}/readings")]
+        public async Task<IActionResult> GetStationReadings([FromQuery]int count, string stationId)
         {
-            return await _mediator.Send(new StationsRequest
+            if (count == 5)
+                return BadRequest();
+
+            return Ok( await _mediator.Send(new StationsRequest
             {
                 Count = count,
                 StationId = stationId
-            });
+            }));
         }
     }
 }
