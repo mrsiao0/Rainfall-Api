@@ -1,6 +1,7 @@
 using Microsoft.OpenApi.Models;
 using Rainfall.Api.Dependencies;
 using Rainfall.Api.Domain.Settings;
+using Rainfall.Api.Domain.ViewModel;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +30,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.Configure<RainfallApiSetting>(builder.Configuration.GetSection("RainfallApiSetting"));
+builder.Services.Configure<StationsReading>(builder.Configuration.GetSection("MockData"));
 
 var app = builder.Build();
 
@@ -38,6 +40,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseHttpLogging();
 
 app.UseHttpsRedirection();
 
